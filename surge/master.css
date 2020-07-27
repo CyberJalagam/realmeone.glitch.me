@@ -1,0 +1,34 @@
+body {
+  background-color: black;
+}
+
+a {
+  color: #4285f4;
+}
+
+img {
+  border-radius: 30px;
+}
+
+.jumbotron {
+  background-color: black;
+  color: white;
+}
+
+.display-4 {
+  color: #fd3333;
+}
+
+.redify {
+  color: #fd3333;
+}
+
+.pixify {
+  color: #4285f4;
+}
+
+.card {
+	border-color: rgba(140, 130, 115, 0.13);
+	background-color: rgb(44, 47, 49) !important;
+	width: 20rem;
+}

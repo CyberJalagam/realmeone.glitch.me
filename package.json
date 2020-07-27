@@ -1,0 +1,9 @@
+{
+  "name": "install-surge",
+  "version": "0.1.0",
+  "description": "I just want to install surge  ",
+  "main": "index.js",
+  "dependencies": {
+    "surge": "0.21.6"
+    }
+}    

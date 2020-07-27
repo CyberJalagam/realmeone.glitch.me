@@ -1,0 +1,86 @@
+{%extends "base.html"%} {%block title%}Home{%endblock%}
+{%block body%}
+<div class="jumbotron">
+  <img src=https://curtana.surge.sh/thumbnail.png height='225'>
+  <hr>
+  <p class="lead">
+  This website automatically updates when a new rom, kernel or recovery is released for the Redmi Note 9S aka curtana, last updated: {{today}}.
+  <br>
+  </p>
+  <p></p>
+  <p class="lead">
+  Just click on a rom/kernel/recovery to get its download link and changelog!
+  <br>
+  The list updates everytime you refresh this page.
+  </p>
+  <p></p>
+  <p class="lead">
+	List of all custom roms:
+	<br>
+    <ul>
+      {% for char in roms %}
+      <li><a href='/{{char}}'>{{char}}</a></li>
+      {% endfor %}
+    </ul>
+  </p>
+  <p class="lead">
+	List of all custom kernels:
+        <br>
+    <ul>
+      {% for char in kernels %}
+      <li><a href='/{{char}}'>{{char}}</a></li>
+      {% endfor %}
+    </ul>
+  </p>
+  <p class="lead">
+	List of all custom recoveries:
+        <br>
+    <ul>
+      {% for char in recoveries %}
+      <li><a href='/{{char}}'>{{char}}</a></li>
+      {% endfor %}
+    </ul>
+  </p>
+  <hr class="hr" />
+  <h1 class="display-4">Checkout the latest releases</h1>
+  <p></p>
+  <div id="carouselLatestReleases" class="carousel slide" data-ride="carousel">
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="card">
+          <img class="card-img-top" src="https://curtana.surge.sh/{{latest[0]}}/thumbnail.png" alt="The lastest rom">
+          <div class="card-body">
+            <h5 class="card-title lead">Latest rom: <div class="redify">{{latest[0]}}</div></h5>
+            <p class="card-text lead">{{latest[0]}} is the latest rom released for the Redmi Note 9S (curtana) as of {{today}}</p>
+            <a href="/{{latest[0]}}" class="btn btn-primary">Check it out!</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <img class="card-img-top" src="https://curtana.surge.sh/{{latest[1]}}/thumbnail.png" alt="The lastest kernel">
+          <div class="card-body">
+            <h5 class="card-title lead">Latest kernel: <div class="redify">{{latest[1]}}</div></h5>
+            <p class="card-text lead">{{latest[1]}} is the latest kernel released for the Redmi Note 9S (curtana) as of {{today}}</p>
+            <a href="/{{latest[1]}}" class="btn btn-primary">Check it out!</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <img class="card-img-top" src="https://curtana.surge.sh/{{latest[2]}}/thumbnail.png" alt="The lastest recovery">
+          <div class="card-body">
+            <h5 class="card-title lead">Latest recovery: <div class="redify">{{latest[2]}}</div></h5>
+            <p class="card-text lead">{{latest[2]}} is the latest recovery released for the Redmi Note 9S (curtana) as of {{today}}</p>
+            <a href="/{{latest[2]}}" class="btn btn-primary">Check it out!</a>
+          </div>
+        </div>
+      </div>
+  <hr class="hr" />
+  <p class="lead">
+  Coded by <a href="https://t.me/A_FRICKING_GAMER">Priyam Kalra</a><br>
+  Source code: Click <a href=https://github.com/PriyamKalra/curtana>here</a>
+  </p>
+</div>
+{%endblock%}
