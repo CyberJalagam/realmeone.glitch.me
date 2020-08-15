@@ -1,10 +1,10 @@
-# Curtana | Surge
-![LOGO](https://curtana.surge.sh/thumbnail.png)
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-
-* Curtana | Surge automatically tracks custom rom, kernel and recovery updates for the Redmi Note 9S, codename: curtana. 
+## </`realmeone.surge.sh`>
+![LOGO](https://realmeone.surge.sh/static/logo.png)
+[realmeone.surge.sh](https://realmeone.surge.sh) automatically tracks custom rom, kernel and recovery updates for the Realme 1 (CPH1859/61) 
 
 ## Credits
-Repositories from which I have taken code to make things work:
-* Telethon: https://github.com/LonamiWebs/Telethon
-* UniBorg: https://github.com/SpEcHiDe/UniBorg
+* [Telethon](https://github.com/LonamiWebs/Telethon) (The telegram client)
+* [The-TG-Bot](https://github.com/justaprudev/The-TG-Bot) (Makes using the telegram client easier)
+
+* [Priyam Kalra](https://github.com/justaprudev) (The Mastermind of the code)
+* Realme 1 [Updates Channel](http://t.me/Realme1Updates) on Telegram (Source)

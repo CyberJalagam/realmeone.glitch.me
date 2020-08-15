@@ -1,7 +1,7 @@
 {
-  "name": "install-surge",
+  "name": "app-requirements",
   "version": "0.1.0",
-  "description": "I just want to install surge  ",
+  "description": "App requirements",
   "main": "index.js",
   "dependencies": {
     "surge": "0.21.6"
