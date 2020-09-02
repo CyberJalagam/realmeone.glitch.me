@@ -17,6 +17,7 @@ class Config(object):
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     BLACK_LIST = set(int(x) for x in os.environ.get(
         "BLACK_LIST", "").split())
-    CHATS = [*os.environ.get("CHATS", "").split(), "@realme1updates"]
+    CHATS = os.environ.get("CHATS", "").split()
+    FILTERS = os.environ.get("FILTERS", "").split()
     BLOCKED_UPDATES = os.environ.get("BLOCKED_UPDATES", "").split()
-    SUBDOMAIN = os.environ.get("SUBDOMAIN", "realmeone")
+    SUBDOMAIN = os.environ.get("SUBDOMAIN", None)

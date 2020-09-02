@@ -5,40 +5,47 @@
 {%block body%}
 
 <center>
-  <picture>
-    <source media="(min-width:1080px)" srcset="static/logo-large.png">
-    <img src="static/logo.png" alt="Realme 1 Updates" />
-  </picture>
+  <img src="https://realmeone.surge.sh/static/logo.png" alt="Realme 1 Updates" height="270" 
+    style="border-radius: 20px;" />
   <p />
-  <h1 class="font">
-    <a href="https://realmeone.surge.sh/"><span class="font redify">realmeone</span></a>
-    <span class="font" style="color: white;">.</span>
-    <a href="https://surge.sh/"><span class="font greenify">surge</span></a>
-    <span class="font" style="color: white;">.</span>
-    <a href="https://github.com/Techy05/realmeone"><span class="font greenify">sh</span></a>
+  <h1>
+    <a href="https://techy05.github.io/realmeone"><span style="color: hsl(220, 100%, 70%);">realmeone</span></a><span
+      style="color: white;">.</span><a href="https://surge.sh/"><span style="color: hsl(149, 45%, 56%);">surge<span
+        style="color: white;">.</span>sh</span></a>
   </h1>
-  <h2 class="font">
+  <h2>
     All your favourite custom firmware in one place.
   </h2>
   <br>
-  <h4 class="font">
-    Developed by <a href="https://justaprudev.github.io"><span class="font redify">Priyam Kalra</span></a>
- </h4>
-  <h5 class="font">
-    Maintained by <a href="https://github.com/Techy05"><span class="font greenify">Mohak</span></a>
-    </h5>
-  <br>
-</center>
-<hr />
-
-<div class="content" style="left: 11%;">
+  <h3>
+    Developed by 
+    <a href="https://justaprudev.github.io">
+      <span class="red">Priyam Kalra</span>
+    </a>
+ </h3>
+  <h4>
+    Maintained by 
+    <a href="https://techy05.github.io">
+      <span style="color: hsl(220, 100%, 70%);">Mohak</span>
+    </a>
+    </h4>  
   <br />
-  <h1 class="font redify" style="font-size:310%;">ROMs</h1>
+</center>
+<hr style="background: #181a1b">
+
+<div class="background-card">
+  <div class="container">
+    <div>
+      <div style="margin-left: 16%;">
+        <span class="red" style="font-size: 135%;">[{{count[0]}}]</span>
+        <h1>ROMs</h1>
+      </div>
+      <p></p>
   <ul class="lead">
     {% for char in roms %} {% if char == latest[0] %}
     <li style="color: {{random_pastel()}}">
       <a href="https://realmeone.surge.sh/{{char}}">
-        <span style="color: white;">{{char}} (Latest)</span>
+        <span style="color: white;">{{char}}</span><span style="color: #ff9966;"> ★</span>
       </a>
     </li>
     {% else %}
@@ -49,17 +56,19 @@
     </li>
     {% endif %} {% endfor %}
   </ul>
-  <br />
 </div>
-
-<div class="content" style="left: 39%;">
-  <br />
-  <h1 class="font redify" style="font-size:310%;">Kernels</h1>
-  <ul class="lead">
+<div style="margin-left: -2%;"></div>
+    <div>
+      <div style="margin-left: 18%;">
+        <span class="red" style="font-size: 135%;">[{{count[1]}}]</span>
+        <h1>Kernels</h1>
+      </div>
+      <p></p>
+      <ul class="lead">
     {% for char in kernels %} {% if char == latest[1] %}
     <li style="color: {{random_pastel()}}">
       <a href="https://realmeone.surge.sh/{{char}}">
-        <span style="color: white;">{{char}} (Latest)</span>
+        <span style="color: white;">{{char}}</span><span style="color: #ff9966;"> ★</span>
       </a>
     </li>
     {% else %}
@@ -70,17 +79,19 @@
     </li>
     {% endif %} {% endfor %}
   </ul>
-  <br />
 </div>
-
-<div class="content" style="left: 67%;">
-  <br />
-  <h1 class="font redify" style="font-size:310%;">Recoveries</h1>
-  <ul class="lead">
+<div style="margin-left: -2%;"></div>
+    <div>
+      <div style="margin-left: 18%;">
+        <span class="red" style="font-size: 135%;">[{{count[2]}}]</span>
+        <h1>Recoveries</h1>
+      </div>
+      <p></p>
+      <ul class="lead">
     {% for char in recoveries %} {% if char == latest[2] %}
     <li style="color: {{random_pastel()}}">
       <a href="https://realmeone.surge.sh/{{char}}">
-        <span style="color: white;">{{char}} (Latest)</span>
+        <span style="color: white;">{{char}}</span><span style="color: #ff9966;"> ★</span>
       </a>
     </li>
     {% else %}
@@ -91,7 +102,12 @@
     </li>
     {% endif %} {% endfor %}
   </ul>
-  <br />
-  <h5 class="font">Last updated: {{date}}</h5>
+  </div>
 </div>
+</div>
+<br />
+<center>
+  <h5>Last updated: {{date}}</h5>
+</center>
+
 {%endblock%}

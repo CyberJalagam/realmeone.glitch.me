@@ -1,1 +1,1 @@
-worker: python3 -m worker
+worker: python3 -m client
