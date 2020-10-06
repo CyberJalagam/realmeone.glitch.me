@@ -1,95 +1,72 @@
-# For realmeone.surge.sh
+# For realmeone.glitch.me // realmeone.surge.sh // realmeone.herokuapp.com
 # By Priyam Kalra
 
+from os import rename, path
 from time import sleep
 from random import choice
-from shutil import rmtree
-from production import Config
-from datetime import date as datetime
-from subprocess import check_output, DEVNULL
+from git import Repo, Actor
+from datetime import date as Date
+from shutil import rmtree, copytree
 from telethon.extensions.html import unparse
-from os import rename, listdir, remove, path
 from jinja2 import Environment, FileSystemLoader
 
 
-# Checks chat username
-async def chat(e):
-    chat = await e.get_chat()
-    if f"@{chat.username}" in Config.CHATS:
-        return True
-    return False
+CWD = ENV.GLITCH_APP
 
 
-# Event Dispatchers
-@client.on(register(outgoing=True, func=chat))
-async def manual(event):
-    log("Starting jobs for manual update.")
-    await handler(event)
-
-
-@client.on(register(incoming=True, func=chat))
-async def automatic(event):
-    log("Starting jobs for automatic update.")
-    await handler(event)
-
-
-# Event handler
-async def handler(event):
+async def main(e):
+    raw_data = []
     data = {}
-    messages = []
-    date = datetime.today().strftime("%B %d, %Y")
-    chats = Config.CHATS
-    log([date + " -- its update day!", "Updates chat(s): " +
-         str(chats), "Event chat: " + f"@{event.sender.username}"])
-    for chat in chats:
-        async for message in client.iter_messages(chat):
-            messages.append(message)
-    messages = sorted(messages, key=latest, reverse=True)
-    for message in messages:
-        if is_valid(message.text):
-            text = parse_text(message)
-            initial = f"{text.split('#')[1].strip()}"
-            title = initial[:1].upper() + initial[1:]
-            if title not in Config.BLOCKED_UPDATES:
-                with open("surge/index.html", "r") as index:
-                    with open("index.bak", "w") as backup:
-                        backup.write(index.read())
-                if title.lower() not in str(data.keys()).lower():
-                    data.update({title: text})
-                    media = await client.download_media(message, f"surge/{title}/")
-                    if media.endswith((".png", ".jpg", ".jpeg")):
-                        logo = f"surge/{title}/logo.png"
-                        logo_html = f"<img src='https://realmeone.surge.sh/{title}/logo.png' height='255'>"
-                    elif media.endswith((".mp4")):
-                        logo = f"surge/{title}/logo.mp4"
-                        logo_html = f"<video style='border-radius: 10px;' height=255 autoplay loop muted playsinline><source src='https://realmeone.surge.sh/{title}/logo.mp4' type='video/mp4'></video>"
-                    rename(media, logo)
-                    parse_template(title=title, text=text[len(title)+1:], logo=logo_html)
+    date = Date.today().strftime("%B %d, %Y")
+    log(date + " -- its update day!", "Updates chat(s): " +
+        str(ENV.CHATS), "Event chat: " + f"@{(await e.get_chat()).username}")
+    if path.exists(CWD):
+        rmtree(CWD)
+    gl = Repo.clone_from(ENV.GLITCH_GIT_URL, CWD)
+    for chat in ENV.CHATS:
+        async for msg in client.iter_messages(chat):
+            if not validate(msg):
+                continue
+            raw_data.append(msg)
+    for msg in sorted(raw_data, key=lambda e: e.date, reverse=True):
+        text = parse_text(msg)
+        title = msg.message.split()[0][1:]
+        if title in ENV.BLOCKED:
+            continue
+        if title.lower() not in str(data.keys()).lower():
+            data.update({title: text})
+            logo = await get_media(msg, title)
+            parse_template(title=title, text=text[len(title)+1:], logo=logo)
     parsed_data = parse_data(data)
-    parse_template(title="404.html")
-    parse_template(title="index.html", roms=sorted(parsed_data[0][1:]), kernels=sorted(parsed_data[1][1:]), recoveries=sorted(
-        parsed_data[2][1:]), latest=[parsed_data[0][1], parsed_data[1][1], parsed_data[2][1]], count=[parsed_data[0][0], parsed_data[1][0], parsed_data[2][0]], random_pastel=random_pastel, choice=choice, date=date)
+    parse_template(title="index.html", roms=sorted(parsed_data[0][1:], key=lambda e: e.upper()), kernels=sorted(parsed_data[1][1:], key=lambda e: e.upper()), recoveries=sorted(parsed_data[2][1:], 
+        key=lambda e: e.upper()), latest=[parsed_data[0][1], parsed_data[1][1], parsed_data[2][1]], count=[parsed_data[0][0], parsed_data[1][0], parsed_data[2][0]], get_color=get_color, choice=choice, date=date)
     log("Update completed.")
-    deploy()
-    log("Cleaning up leftover files..")
-    for f in listdir("surge"):
-        if path.isdir(f"surge/{f}"):
-            if f != "static":
-                rmtree(f"surge/{f}")
-    remove("surge/index.html")
-    rename("index.bak", "surge/index.html")
-    log(["Cleaned up all leftover files.", "All jobs executed, idling.."])
+    deploy(gl)
+    log("All jobs executed, idling..")
 
 
-# Helpers
+async def get_media(msg, title):
+    media = await client.download_media(msg, f"{CWD}/{title}/")
+    if media.endswith((".png", ".jpg", ".jpeg")):
+        logo_path = f"{CWD}/{title}/logo.png"
+        logo = f"<img src='https://{CWD}.glitch.me/{title}/logo.png' class='image'>"
+    elif media.endswith((".mp4")):
+        logo_path = f"{CWD}/{title}/logo.mp4"
+        logo = f"<video style='border-radius: 10px;' height=255 autoplay loop muted playsinline><source src='https://{CWD}.glitch.me/{title}/logo.mp4' type='video/mp4'></video>"
+    rename(media, logo_path)
+    return logo
+
+
 def parse_text(msg):
     text = unparse(msg.message, msg.entities)
-    changes = {"▪️": "> ", "\n": "\n<br>"}
+    changes = {"<em>": "", "</em>": "", "<strong>": "",
+               "</strong>":"", "\n": "\n<br>", "▪️": "> "}
+    for word in text.split():
+        word = word.replace("<strong>", "").replace("</strong>", "")
+        if word.startswith("@"):
+            changes.update({word: f"<a href=\"https://t.me/{word[1:]}\">{word}</a>"})
     for a, b in changes.items():
         text = text.replace(a, b)
-    for term in text.split():
-        if term.startswith("@"):
-            text = text.replace(term, f"<a href=\"http://t.me/{term[1:]}\">{term}</a>")
     return text
 
 
@@ -115,50 +92,71 @@ def parse_data(data):
 
 
 def parse_template(title, **kwargs):
-    path = f"surge/{title}/index.html"
+    path = f"{CWD}/{title}/index.html"
+    to_path = None
     if title.endswith(".html"):
-        path = f"surge/{title}"
+        path = f"glitch/{title}"
+        to_path = f"{CWD}/{title}"
         jinja2_template = str(open(path, "r").read())
     else:
         kwargs["title"] = title
-        jinja2_template = str(open("surge/template.html", "r").read())
+        jinja2_template = str(open("glitch/template.html", "r").read())
     template_object = Environment(
-        loader=FileSystemLoader("surge")).from_string(jinja2_template)
+        loader=FileSystemLoader("glitch")).from_string(jinja2_template)
     static_template = template_object.render(**kwargs)
-    with open(path, "w") as f:
+    with open(to_path or path, "w") as f:
         f.write(static_template)
 
 
-def latest(message):
-    return message.date
-
-
-def is_valid(msg):
-    text = msg if msg is not None else ""
-    for req in Config.FILTERS:
+def validate(msg):
+    text = msg.text or ""
+    for req in ENV.FILTERS:
         if f"#{req.lower()}" in text.lower():
             return True
     return False
-    
 
-def log(text):
-    if type(text) is not list:
-        text = [text]
+
+async def auth(e):
+    chat = await e.get_chat()
+    try:
+        if f"@{chat.username}" in ENV.CHATS:
+            return True
+    except:
+        pass
+    return False
+
+
+def log(*text):
     for item in text:
         logger.info(item)
-        sleep(1)
+        if len(text) > 1:
+            sleep(1)
 
 
-def random_pastel():
+def deploy(gl):
+    if path.isdir(f"glitch/static"):
+        copytree(f"glitch/static", f"{CWD}/static", dirs_exist_ok=True)
+    actor = Actor(f"Glitch ({CWD})", "None")
+    gl.index.add("*")
+    gl.index.write()
+    commit = gl.index.commit("Automatic deploy", author=actor, committer=actor)
+    push = gl.remote().push()[0]
+    if str(commit)[:7] in push.summary:
+        log(f"{CWD}.glitch.me deployed successfully!")
+    else:
+        log("Error while deploying:\n" + push.summary,
+            str(commit), str(commit)[:7])
+
+
+def get_color():
     return f"hsl({choice(range(359))}, 100%, 75%)"
 
 
-def deploy():
-    log(f"Deploying {Config.SUBDOMAIN}.surge.sh..")
-    output = check_output(
-        f"surge surge https://{Config.SUBDOMAIN}.surge.sh", shell=True)
-    if "Success!" in str(output):
-        log(f"{Config.SUBDOMAIN}.surge.sh deployed sucessfully.")
-    else:
-        log(f"Failed to deploy {Config.SUBDOMAIN}.surge.sh " +
-            "\nError: " + str(output))
+@client.on(events(incoming=True, outgoing=True, forwards=True, func=auth))
+async def run(e):
+    await main(e)
+
+@client.on(events(pattern="glitch", allow_sudo=True))
+async def trigger(e):
+    await e.reply(f"**Manual Update** `--` @{(await e.get_sender()).username}!\n`{CWD}.glitch.me`")
+    await main(e)
