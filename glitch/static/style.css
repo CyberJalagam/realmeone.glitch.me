@@ -73,15 +73,6 @@ body {
 }
 
 
-@media only screen and (min-width: 640px) {
-    .container {
-        grid-template-columns: auto auto;
-    }
-    .image {
-        width: 65%;
-    }
-}
-
 @media only screen and (min-width: 1200px) {
     .container {
         grid-template-columns: auto auto auto;
