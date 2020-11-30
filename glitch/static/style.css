@@ -33,7 +33,7 @@ body {
     background-color: #121212; 
     padding: 30px; 
     border-radius: 15px;
-    height: 94%;
+    height: auto;
 }
 
 
@@ -77,6 +77,9 @@ body {
 @media only screen and (min-width: 1200px) {
     .container {
         grid-template-columns: auto auto auto;
+    }
+    .content {
+        height: 96%;
     }
     .image {
         width: 35%;
