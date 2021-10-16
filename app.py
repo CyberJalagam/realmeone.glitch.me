@@ -61,12 +61,11 @@ def parse_text(msg):
     text = unparse(msg.message, msg.entities)
     changes = {"<em>": "", "</em>": "", "<strong>": "",
                "</strong>":"", "\n": "\n<br>", "▪️": "> "}
-    for word in text.split():
-        word = word.replace("<strong>", "").replace("</strong>", "")
-        if word.startswith("@"):
-            changes.update({word: f"<a href=\"https://t.me/{word[1:]}\">{word}</a>"})
     for a, b in changes.items():
         text = text.replace(a, b)
+    for word in text.split():
+        if word.startswith("@"):
+            text.replace(word, f"<a href=\"https://telegram.me/{word[1:]}\">{word}</a>")
     return text
 
 
@@ -77,9 +76,6 @@ def parse_data(data):
     for title, value in data.items():
         value = value.lower()
         if "#rom" in value:
-            roms.append(title)
-            roms[0] += 1
-        elif "#blissrom" in value:
             roms.append(title)
             roms[0] += 1
         elif "#kernel" in value:
