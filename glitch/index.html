@@ -1,119 +1,68 @@
 <!-- This is an automatically generated page -->
 
 {%extends "base.html"%}
-{%block title%}Home - Realme 1{%endblock%}
+{%block title%}realmeone{%endblock%}
 {%block body%}
+
 <body>
-
-  <center>
-    <img src="https://realmeone.glitch.me/static/logo.png" alt="Realme 1" class="image">
-    <p></p>
-    <h1>
-      <a href="https://techy05.github.io/realmeone"><span class="red">realmeone</span></a>.<a
-        href="https://glitch.me/"><span class="purple">glitch<span 
-          style="color: white;">.</span>me</span></a>
-    </h1>
-    <h2>
-      All your favourite custom firmware in one place.
-    </h2>
-    <br />
-    <h3>
-      Developed by
-      <a href="https://justaprudev.github.io">
-        <span class="red">Priyam Kalra</span>
+  
+  <div class="navbar">
+    <a href=""><div class="logo">realmeone</div></a>
+    <div class="navbar-b">
+      <div class="navigate">
+        <a href="" class="active">Home</a>
+        <a href="#Downloads">Downloads</a>
+        <a href="https://realmeone.glitch.me/about">About</a>
+        <a href="https://github.com/Techy05/realmeone">Github</a>
+      </div> 
+      <a href="https://telegram.me/Realme1Updates" class="tg">
+        <img src="https://realmeone.glitch.me/sources/img/telegram.svg">
       </a>
-      <br /><small>
-        Maintained by
-        <a href="https://techy05.github.io">
-          <span class="purple">Mohak</span>
-        </a>
-      </small>
-    </h3>
-    <br />
-    <br />
-  </center>
-
-  <div class="container">
-    <div class="background">
-      <marquee behavior="slide" direction="down" scrollamount="7">
-        <h1 style="text-align: center;">ROMs
-        <span class="red" style="font-size: 53%;"> [{{count[0]}}]</span></h1>
-      </marquee>
-      <div class="content">
-        <p></p>
-        <ul class="lead">
-          {% for char in roms %} {% if char == latest[0] %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span></a>
-              <span class="badge">Latest</span>
-          </li>
-          {% else %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span>
-            </a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </div>
-    </div>
-    
-    <div class="background">
-      <marquee behavior="slide" direction="down" scrollamount="7">
-        <h1 style="text-align: center;">Kernels
-        <span class="red" style="font-size: 53%;"> [{{count[1]}}]</span></h1>
-      </marquee>
-      <div class="content">
-        <p></p>
-        <ul class="lead">
-          {% for char in kernels %} {% if char == latest[1] %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span></a>
-              <span class="badge">Latest</span>
-          </li>
-          {% else %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span>
-            </a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </div>
-    </div>
-
-    <div class="background">
-      <marquee behavior="slide" direction="down" scrollamount="7">
-        <h1 style="text-align: center;">Recoveries
-        <span class="red" style="font-size: 53%;"> [{{count[2]}}]</span></h1>
-      </marquee>
-      <div class="content">
-        <p></p>
-        <ul class="lead">
-          {% for char in recoveries %} {% if char == latest[2] %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span></a>
-              <span class="badge">Latest</span>
-          </li>
-          {% else %}
-          <li style="color: {{get_color()}}">
-            <a href="https://realmeone.glitch.me/{{char}}">
-              <span style="color: white;">{{char}}</span>
-            </a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </div>
     </div>
   </div>
 
-  <br><br><br>
-  <center>
-    <h5>Last updated: {{date}}</h5>
-  </center>
+  <div class="bg"></div>
+  <div class="cover">
+    <div class="heading">
+      <span style="color: #ffa1e7">realmeone</span>.<span
+      style="color: #c480ff">glitch</span>.<span
+      style="color: #c480ff">me</span>
+    </div>
+    <div class="subheading">
+      <br>All your favorite custom firmware for Realme 1 | CPH1859 in one place.
+      <br>Brought to you by <a href="https://github.com/thepriyamkalra">Priyam Kalra</a>
+      and <a href="https://techy05.github.io">TechyNewbie</a>
+    </div>
+  </div>
+
+
+  <div class="content" style="border-radius:0" id="Downloads">
+    <center>
+      <div class="subheading2">EXPLORE</div>
+      <div style="background: #ff8ae2; margin-top: 20px; margin-bottom: 60px; height: 3px; width: 50px"></div>
+    </center>
+    <div class="container">
+      
+      <a href="https://realmeone.glitch.me/rom" class="card">
+        <div class="title">ROMs</div>
+        <div class="button"><img src="https://realmeone.glitch.me/sources/img/arrow.svg"></div>
+      </a>
+    
+      <a href="https://realmeone.glitch.me/recovery" class="card">
+        <div class="title">Recoveries</div>
+        <div class="button"><img src="https://realmeone.glitch.me/sources/img/arrow.svg"></div>
+      </a>
+      
+      <a href="https://realmeone.glitch.me/kernel" class="card">
+        <div class="title">Kernels</div>
+        <div class="button"><img src="https://realmeone.glitch.me/sources/img/arrow.svg"></div>
+      </a>      
+    </div>
+  </div>
+
+  <footer class="footer">
+    Last updated: {{date}}
+  </footer>
 
 </body>
 {%endblock%}

@@ -16,8 +16,6 @@ class ENV(object):
         "DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
     COMMAND_HANDLER = os.environ.get("COMMAND_HANDLER", "\/")
     SUDO_USERS = os.environ.get("SUDO_USERS", "").split()
-    BLACK_LIST = set(int(x) for x in os.environ.get(
-        "BLACK_LIST", "").split())
     CHATS = os.environ.get("CHATS", "").split()
     FILTERS = os.environ.get("FILTERS", "").split()
     BLOCKED = os.environ.get("BLOCKED", "").split()

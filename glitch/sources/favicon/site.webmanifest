@@ -1,14 +1,14 @@
 {
-    "name": "Realme 1 Updates",
-    "short_name": "Realme 1 Updates",
+    "name": "realmeone",
+    "short_name": "realmeone",
     "icons": [
         {
-            "src": "https://realmeone.glitch.me/static/favicon/android-chrome-192x192.png",
+            "src": "https://realmeone.glitch.me/sources/favicon/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "https://realmeone.glitch.me/static/favicon/android-chrome-512x512.png",
+            "src": "https://realmeone.glitch.me/sources/favicon/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }

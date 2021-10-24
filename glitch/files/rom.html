@@ -1,0 +1,61 @@
+<!-- This is an automatically generated page -->
+
+{%extends "base.html"%}
+{%block title%}ROMs{%endblock%}
+{%block body%}
+
+<body>
+
+  <div class="navbar">
+    <a href="https://realmeone.glitch.me"><div class="logo">realmeone</div></a>
+    <div class="navbar-b">
+      <div class="navigate">
+        <a href="#roms" class="active">ROMs</a>
+        <a href="https://realmeone.glitch.me/recovery">Recoveries</a>
+        <a href="https://realmeone.glitch.me/kernel">Kernels</a>
+      </div> 
+      <a href="https://telegram.me/Realme1Updates" class="tg">
+        <img src="https://realmeone.glitch.me/sources/img/telegram.svg" class="logo">
+      </a>
+    </div>
+  </div>
+
+  <div class="bg"></div>
+  <div class="cover2">
+    <div class="heading2">
+      ROM<span style="color:#cfcfcf;">s</span>
+      <div class="subheading" style="margin-top:5%; text-align:unset; font-family:'Prompt'; color:#ffbbee;">
+        For Realme 1  (CPH1859/CPH1861)
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="roms">
+    <center>
+      <div class="subheading2">READY TO CUSTOMIZE?</div>
+      <div style="background: #ff8ae2; margin-top: 20px; margin-bottom: 60px; height: 3px; width: 50px"></div>
+    </center>
+
+    {% set latest_release = roms[0] %} {{ roms.sort() or ''}}
+    {% for char in roms %}
+    {% if char == latest_release %}
+    <a href="https://realmeone.glitch.me/rom/{{char.lower()}}" class="tab">
+      <div style="color: #ffbbee">></div><div>{{char}}</div>
+      <div class="latest">NEW</div>
+      <div class="arrow"><img src="https://realmeone.glitch.me/sources/img/arrow.svg"></div>
+    </a>
+    {% else %}
+    <a href="https://realmeone.glitch.me/rom/{{char.lower()}}" class="tab">
+      <div style="color: #ffbbee">></div><div>{{char}}</div>
+      <div class="arrow"><img src="https://realmeone.glitch.me/sources/img/arrow.svg"></div>
+    </a>
+    {% endif %} {% endfor %}
+    
+  </div>
+
+  <footer class="footer">
+    Total Number of ROMs: {{len(roms)}}
+  </footer>
+
+</body>
+{%endblock%}

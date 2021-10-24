@@ -1,0 +1,47 @@
+<!-- This is an automatically generated page -->
+
+{%extends "base.html"%}
+{%block title%}{{title}}{%endblock%}
+{%block body%}
+
+<body>
+
+  <div class="navbar">
+    <a href="https://realmeone.glitch.me"><div class="logo">realmeone</div></a>
+    <div class="navbar-b">
+      <div class="navigate">
+        <a href="https://realmeone.glitch.me/rom">ROMs</a>
+        <a href="https://realmeone.glitch.me/recovery">Recoveries</a>
+        <a href="https://realmeone.glitch.me/kernel">Kernels</a>
+      </div> 
+      <a href="https://telegram.me/Realme1Updates" class="tg">
+        <img src="https://realmeone.glitch.me/sources/img/telegram.svg" class="logo">
+      </a>
+    </div>
+  </div>
+
+  <div class="cover3">
+    <div class="heading3">
+      {{title}}
+      <div style="font-size:30px; font-family:'Prompt'; font-weight:300; color:#ffbbee;">
+        For Realme 1
+      </div>
+    </div>
+    {{banner}}
+  </div>
+  
+  <div class="content curve">
+    <div style="margin-top:1%; font-family:'Quicksand'; font-weight:500; text-align:center; font-size:30px; color:#d09aff">
+      {{content.split('\n')[0]}}
+    </div>
+    <div class="info">
+      {{'\n'.join(content.split('\n')[1:]).lstrip("\n <br>")}}
+    </div>
+  </div>
+
+  <footer class="footer">
+    Released: {{date}}
+  </footer>
+
+</body>
+{%endblock%}

@@ -1,4 +1,4 @@
-telethon==1.14.0
+telethon
 jinja2
 pygit
 GitPython

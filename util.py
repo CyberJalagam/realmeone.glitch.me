@@ -43,10 +43,6 @@ def _events(pattern=None, allow_sudo=False, incoming=False, forwards=False, func
         args["from_users"] = list(ENV.SUDO_USERS + ["me"])
     else:
         args["outgoing"] = True
-    args["blacklist_chats"] = True
-    black_list_chats = list(ENV.BLACK_LIST)
-    if len(black_list_chats) > 0:
-        args["chats"] = black_list_chats
     return events.NewMessage(**args)
 
 

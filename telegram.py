@@ -74,6 +74,11 @@ class Userbot(TelegramClient):
     def load_module(self, shortname):
         self.load_module_from_file(f"{self._module_path}/{shortname}.py")
 
+    async def shell(self, cmd):
+        proc = await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE) 
+        stdout, stderr = await proc.communicate()
+        return (stdout.decode() or None, stderr.decode() or None)
+
     def load_module_from_file(self, path):
         path = Path(path)
         shortname = path.stem
