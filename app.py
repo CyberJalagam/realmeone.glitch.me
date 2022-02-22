@@ -28,15 +28,13 @@ DOMAIN = f"{APP_NAME}.glitch.me"
 DATE = datetime.date.today().strftime("%B %d, %Y")
 
 
-@client.on(events(incoming=True, outgoing=True, forwards=True,
-    func=lambda e: f"@{e.chat.username}" in DATA["chats"] if e.chat else False,
-))
 @client.on(events(pattern=APP_NAME, allow_sudo=True))
 async def glitch(e):
-    if (await e.get_sender()).username == me.username:
-        await e.delete()
-    await e.reply(f"Manual Update - {APP_NAME}.glitch.me")
-    if not DATA:
+    if e.text[1:] == APP_NAME:  # Workaround
+        if (await e.get_sender()).username == me.username:
+            await e.delete()
+        await e.reply(f"Manual Update - {APP_NAME}.glitch.me")
+    if not DATA["git"]:
         logger.info(f"Initialization failed!")
         return
     logger.info(
@@ -63,6 +61,7 @@ async def glitch(e):
             title = content.split()[0][1:]
             if (
                 not title
+                or not msg.media
                 or not is_required_content(content.lower())
                 or title.lower() in map(str.lower, DATA["blocked_items"])
             ):
@@ -108,6 +107,11 @@ async def glitch(e):
     )
     push_to_glitch(glitch_repository)
     logger.info("Update completed.")
+
+@client.on(events(incoming=True, outgoing=True, forwards=True))
+async def auto(e):
+    if f"@{(await e.get_chat()).username}" in DATA["chats"]:
+        await glitch(e)
 
 
 async def get_banner(msg, path: Path) -> str:

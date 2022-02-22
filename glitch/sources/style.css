@@ -117,7 +117,7 @@ a {
   width: 100%;
   margin: 1.5%;
   border-radius: 20px;
-  background: #0f0f0f;
+  background: #181818;
   transition: 0.3s ease-out;
 }
 
@@ -154,7 +154,7 @@ a {
   height: 10%;
   display: flex;
   box-sizing: border-box;
-  background: #0f0f0f;
+  background: #181818;
   align-items: center;
   justify-content: space-around;
   font-size: 110%;
@@ -166,7 +166,7 @@ a {
 
 .card:hover {
   transform: scale(1.1);
-  background: #1a1a1a;
+  background: #1f1f1f;
   transition: 0.3s ease-out;
 }
 

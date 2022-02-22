@@ -32,7 +32,7 @@ def _events(pattern=None, allow_sudo=False, incoming=False, forwards=False, func
     if func is not None:
         args["func"] = func
     if pattern is not None:
-        args["pattern"] = re.compile(ENV.COMMAND_HANDLER + pattern)
+        args["pattern"] = re.compile(ENV.COMMAND_HANDLER + pattern + "$")
     if forwards is True:
         args["forwards"] = None
     else:
